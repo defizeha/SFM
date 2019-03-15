@@ -11,6 +11,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +25,11 @@ import java.util.ResourceBundle;
  */
 public class HistoricalFragment extends Fragment {
 
+    DatePicker datePicker;
+    TextView displayDate;
+    Button changeDate;
+    int month;
+
 //    @NonNull
     @Override
 //    public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -31,8 +37,29 @@ public class HistoricalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_historical, container, false);
+        final View view = inflater.inflate(R.layout.fragment_historical, container, false);
 
+        datePicker = (DatePicker) view.findViewById(R.id.datePicker);
+        displayDate = (TextView) view.findViewById(R.id.display_date);
+        displayDate.setText("Display Date");
+        changeDate = (Button) view.findViewById(R.id.change_date_button);
+
+        displayDate.setText(currentDate());
+        changeDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayDate.setText(currentDate());
+            }
+        });
+        return view;
+    }
+
+    public String currentDate() {
+        StringBuilder mcurrentDate = new StringBuilder();
+        month = datePicker.getMonth() + 1;
+        mcurrentDate.append("Date: " + month + "/" +
+                datePicker.getDayOfMonth() + "/" + datePicker.getYear());
+        return mcurrentDate.toString();
 //        final Calendar calendar = Calendar.getInstance();
 //        int year = calendar.get(Calendar.YEAR);
 //        int month = calendar.get(Calendar.MONTH);

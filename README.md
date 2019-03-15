@@ -1,2 +1,1 @@
-# SFM
-Sales Force Management
+# SFA
